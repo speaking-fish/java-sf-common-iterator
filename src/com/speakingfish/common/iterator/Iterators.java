@@ -1,6 +1,10 @@
 package com.speakingfish.common.iterator;
 
+import static com.speakingfish.common.iterator.Iterators.reverseIterator;
+
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import com.speakingfish.common.function.Acceptor;
 import com.speakingfish.common.function.Getter;
@@ -29,7 +33,7 @@ public class Iterators {
     
     public static <T> Iterable<T> iterableOf(final Iterator<T> src) {
         return new Iterable<T>() {
-            @Override public Iterator<T> iterator() {
+            public Iterator<T> iterator() {
                 return src;
             }};
     }
@@ -84,5 +88,14 @@ public class Iterators {
                 return getter.get();
             }};
     }
+    
+    public static <T> ReverseListIterator<T> reverseIterator(ListIterator<T> origin) {
+        return new ReverseListIterator<T>(origin);
+    }
+
+    public static <T> ReverseListIterator<T> reverseIterator(List<T> origin) {
+        return reverseIterator(origin.listIterator(origin.size()));
+    }
+    
 
 }

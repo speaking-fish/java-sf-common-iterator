@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.speakingfish.common.function.Mapper;
 
-public class MapIterator<D, S> implements Iterator<D> {
+public class MapIterator<D, S> extends AbstractIterator<D> {
 
     protected final Iterator<S>  _src   ;
     protected final Mapper<D, S> _mapper;

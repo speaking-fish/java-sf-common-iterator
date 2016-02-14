@@ -1,10 +1,8 @@
 package com.speakingfish.common.iterator;
 
-import java.util.Iterator;
+public abstract class AbstractConstIterator<T> extends AbstractIterator<T>  implements ConstIterator<T> {
 
-public abstract class AbstractConstIterator<T> implements Iterator<T>, ConstIterator<T> {
-
-    public void remove() {
+    @Override public void remove() {
         throw new UnsupportedOperationException("This iterator is readonly.");
     }
 
