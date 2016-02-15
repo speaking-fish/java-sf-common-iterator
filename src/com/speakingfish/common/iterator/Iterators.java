@@ -1,11 +1,10 @@
 package com.speakingfish.common.iterator;
 
-import static com.speakingfish.common.iterator.Iterators.reverseIterator;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.speakingfish.common.annotation.Compatibility.*;
 import com.speakingfish.common.function.Acceptor;
 import com.speakingfish.common.function.Getter;
 import com.speakingfish.common.function.Mapper;
@@ -97,5 +96,7 @@ public class Iterators {
         return reverseIterator(origin.listIterator(origin.size()));
     }
     
+
+    static { Dummy.dummy(); }
 
 }
