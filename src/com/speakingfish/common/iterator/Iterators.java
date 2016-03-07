@@ -18,6 +18,10 @@ public class Iterators {
         return new MapIterator<DEST, SRC>(src, mapper);
     }
     
+    public static <DEST, SRC> MapIterator<DEST, SRC> mapIterator(Mapper<DEST, SRC> mapper, Iterator<SRC> src) {
+        return new MapIterator<DEST, SRC>(src, mapper);
+    }
+    
     public static <T> AcceptIterator<T> acceptIterator(Iterator<T> src, Acceptor<T> acceptor) {
         return new AcceptIterator<T>(src, acceptor);
     }
