@@ -1,0 +1,36 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Speakingfish iterator utilities module',
+            'Implementation-Version': version
+        )
+    }
+}
+    
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+
+dependencies {
+    compile project(':java-sf-common-compatibility')
+    compile project(':java-sf-common-function')
+    compile project(':java-sf-common')
+    compile project(':java-sf-common-value')
+    compile project(':java-sf-common-type')
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
