@@ -100,6 +100,9 @@ public class Iterators {
         return reverseIterator(origin.listIterator(origin.size()));
     }
     
+    public static <T> RepeatGenerator<T> repeat(int count, T value) {
+        return new RepeatGenerator<T>(count, value);
+    }
 
     static { Dummy.dummy(); }
 
