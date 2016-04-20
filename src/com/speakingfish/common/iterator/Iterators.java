@@ -99,6 +99,17 @@ public class Iterators {
                 return getter.get();
             }};
     }
+
+    public static <T, S> Iterator<T> lazyIterator(final Getter<Iterator<T>> getter) {
+        return new LazyIterator<T>(getter);
+    }
+
+    public static <T, S> Getter<Iterator<T>> getterIteratorOf(final Getter<? extends Iterable<T>> getter) {
+        return new Getter<Iterator<T>>() {
+            public Iterator<T> get() {
+                return getter.get().iterator();
+            }};
+    }
     
     public static <T> ReverseListIterator<T> reverseIterator(ListIterator<T> origin) {
         return new ReverseListIterator<T>(origin);
@@ -117,7 +128,7 @@ public class Iterators {
         T_DEST_ITEM,
         T_SRC_ITEM
     > Creator<T_DEST_COLLECTION, Iterator<T_SRC_ITEM>> collectCreator(
-        final Getter<T_DEST_COLLECTION> creator,
+        final Getter<? extends T_DEST_COLLECTION> creator,
         final Mapper<T_DEST_ITEM, T_SRC_ITEM> mapper
     ) {
         return new Creator<T_DEST_COLLECTION, Iterator<T_SRC_ITEM>>() {
@@ -126,23 +137,26 @@ public class Iterators {
             }
         };
     }
-
+    
     public static <
-        T_Map__T_KEY_T_DEST_VALUE extends Map<T_KEY, T_DEST_VALUE>,
-        T_KEY                                                     ,
-        T_DEST_VALUE                                              ,
+        T_DEST_MAP extends Map<T_DEST_KEY, T_DEST_VALUE>,
+        T_DEST_KEY                                      ,
+        T_DEST_VALUE                                    ,
+        T_SRC_KEY                                       ,
         T_SRC_VALUE
-    > Creator<T_Map__T_KEY_T_DEST_VALUE, Iterator<Entry<T_KEY, T_SRC_VALUE>>> collectMapValueCreator(
-        final Getter<T_Map__T_KEY_T_DEST_VALUE> creator,
-        final Mapper<T_DEST_VALUE, T_SRC_VALUE> mapper
+    > Creator<
+        T_DEST_MAP,
+        Iterator<Entry<T_SRC_KEY, T_SRC_VALUE>>
+    > collectMapCreator(
+        final Getter<? extends T_DEST_MAP> creator,
+        final Mapper<Entry<T_DEST_KEY, T_DEST_VALUE>, Entry<T_SRC_KEY, T_SRC_VALUE>> mapper
     ) {
-        return new Creator<T_Map__T_KEY_T_DEST_VALUE, Iterator<Entry<T_KEY, T_SRC_VALUE>>>() {
-            public T_Map__T_KEY_T_DEST_VALUE apply(Iterator<Entry<T_KEY, T_SRC_VALUE>> src) {
-                return collectMap(creator.get(), mapIterator(src, Maps.<T_KEY, T_DEST_VALUE, T_SRC_VALUE>makeEntryValueMapper(mapper)));
+        return new Creator<T_DEST_MAP, Iterator<Entry<T_SRC_KEY, T_SRC_VALUE>>>() {
+            public T_DEST_MAP apply(Iterator<Entry<T_SRC_KEY, T_SRC_VALUE>> src) {
+                return collectMap(creator.get(), mapIterator(src, mapper));
             }
         };
     }
-    
     static { Dummy.dummy(); }
 
 }
