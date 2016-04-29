@@ -30,7 +30,9 @@ dependencies {
     compile project(':java-sf-common-compatibility')
     compile project(':java-sf-common-function')
     compile project(':java-sf-common')
+    compile project(':java-sf-common-closeable')
     compile project(':java-sf-common-value')
+    compile project(':java-sf-common-value-util')
     compile project(':java-sf-common-type')
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
