@@ -11,6 +11,8 @@ public class ConstIteratorWrapper<T>  extends AbstractConstIterator<T> implement
             return emptyIterator();
         } else if(origin instanceof ConstIterator) {
             return (ConstIterator<T>) origin;
+        } else if(origin instanceof IterableIterator) {
+            return new IterableConstIteratorWrapper<T>(origin);
         } else {
             return new ConstIteratorWrapper<T>(origin);
         }

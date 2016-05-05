@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.SortedMap;
 
-import com.speakingfish.common.Maps;
 import com.speakingfish.common.annotation.Compatibility.*;
+import com.speakingfish.common.collection.CollectionHelper;
 import com.speakingfish.common.function.Acceptor;
 import com.speakingfish.common.function.Creator;
 import com.speakingfish.common.function.Getter;
@@ -18,6 +19,7 @@ import com.speakingfish.common.type.Typecasts;
 import com.speakingfish.common.type.Typed;
 
 import static com.speakingfish.common.collection.CollectionHelper.*;
+import static com.speakingfish.common.Compares.*;
 import static com.speakingfish.common.Maps.*;
 
 public class Iterators {
@@ -43,10 +45,7 @@ public class Iterators {
     }
     
     public static <T> Iterable<T> iterableOf(final Iterator<T> src) {
-        return new Iterable<T>() {
-            public Iterator<T> iterator() {
-                return src;
-            }};
+        return IterableIterator.create(src);
     }
 
     public static <T> ConstIterator<T> asConst(Iterator<T> src) {
@@ -157,6 +156,18 @@ public class Iterators {
             }
         };
     }
+    
+    public static <T extends Enum<T>> SortedMap<String, T> mapEnumIgnoreCase(Class<T> src) {
+        return collectMap(
+            CollectionHelper.<String, T>treeMap(COMPARATOR_STRING_IGNORE_CASE),
+            mapIterator(
+                listIterator(src.getEnumConstants()),
+                makeEntryKeyMapper(Mappers.<T>mapperToString())
+                )
+            );
+    }
+
+    
     static { Dummy.dummy(); }
 
 }
