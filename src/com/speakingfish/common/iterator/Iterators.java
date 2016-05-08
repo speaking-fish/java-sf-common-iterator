@@ -159,7 +159,7 @@ public class Iterators {
     
     public static <T extends Enum<T>> SortedMap<String, T> mapEnumIgnoreCase(Class<T> src) {
         return collectMap(
-            CollectionHelper.<String, T>treeMap(COMPARATOR_STRING_IGNORE_CASE),
+            CollectionHelper.<String, T>treeMap(String.CASE_INSENSITIVE_ORDER),
             mapIterator(
                 listIterator(src.getEnumConstants()),
                 makeEntryKeyMapper(Mappers.<T>mapperToString())
