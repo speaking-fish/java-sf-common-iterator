@@ -56,7 +56,7 @@ public class Iterators {
         return castConstIterator(EmptyIterator.INSTANCE, proto);
     }
 
-    public static <T> ConstIterator<T> emptyIterator() {
+    public static <T> ConstIterator<T> emptyIterator() { // TODO: compatibility with 1.8 Colections.emptyIterator
         return emptyIterator(Typecasts.<T>typed());
     }
 
