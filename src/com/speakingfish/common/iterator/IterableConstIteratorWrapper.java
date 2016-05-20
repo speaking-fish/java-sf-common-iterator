@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class IterableConstIteratorWrapper<T> extends IterableIterator<T> implements ConstIterator<T> {
 
-    public static final IterableConstIteratorWrapper<?> INSTANCE = new IterableConstIteratorWrapper<Object>(emptyIterator());
+    public static final IterableConstIteratorWrapper<?> INSTANCE = new IterableConstIteratorWrapper<Object>(noneIterator());
     
     @SuppressWarnings("unchecked")
     public static <T> Iterable<T> create(final Iterator<T> src) {

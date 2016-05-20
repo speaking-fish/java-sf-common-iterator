@@ -8,7 +8,7 @@ public class ArrayIterator<T> extends AbstractConstIterator<T> {
 
     public static <T> ConstIterator<T> create(T[] values) {
         if((null == values) || (0 == values.length)) {
-            return emptyIterator();
+            return noneIterator();
         } else {
             return new ArrayIterator<T>(values);
         }

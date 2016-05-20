@@ -8,7 +8,7 @@ public class ConstIteratorWrapper<T>  extends AbstractConstIterator<T> implement
 
     public static <T> ConstIterator<T> create(final Iterator<T> origin) {
         if(null == origin) {
-            return emptyIterator();
+            return noneIterator();
         } else if(origin instanceof ConstIterator) {
             return (ConstIterator<T>) origin;
         } else if(origin instanceof IterableIterator) {

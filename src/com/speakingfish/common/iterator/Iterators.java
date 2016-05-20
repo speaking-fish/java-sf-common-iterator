@@ -52,12 +52,12 @@ public class Iterators {
         return ConstIteratorWrapper.create(src);
     }
 
-    public static <T> ConstIterator<T> emptyIterator(Typed<T> proto) {
+    public static <T> ConstIterator<T> noneIterator(Typed<T> proto) {
         return castConstIterator(EmptyIterator.INSTANCE, proto);
     }
 
-    public static <T> ConstIterator<T> emptyIterator() { // TODO: compatibility with 1.8 Colections.emptyIterator
-        return emptyIterator(Typecasts.<T>typed());
+    public static <T> ConstIterator<T> noneIterator() {
+        return noneIterator(Typecasts.<T>typed());
     }
 
     public static <T> ConstIterator<T> singleIterator(T value) {
