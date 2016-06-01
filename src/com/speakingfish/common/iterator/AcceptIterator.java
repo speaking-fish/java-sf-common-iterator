@@ -10,7 +10,7 @@ import com.speakingfish.common.function.Acceptor;
  *
  * @param <T>
  */
-public class AcceptIterator<T> extends AbstractConstIterator<T> {
+public class AcceptIterator<T> extends AbstractIterator<T> {
 
     protected final Iterator<T> _src     ;
     protected final Acceptor<T> _acceptor;
@@ -18,6 +18,7 @@ public class AcceptIterator<T> extends AbstractConstIterator<T> {
     protected boolean _hasNextAssigned = false;
     protected boolean _hasNext         = false;
     protected boolean _nextAssigned    = false; // required for allowing null values
+    protected boolean _allowRemove     = false;
     protected T       _next            = null ;
     
     public AcceptIterator(
@@ -30,6 +31,7 @@ public class AcceptIterator<T> extends AbstractConstIterator<T> {
     }
 
     void prepareHasNext() {
+        _allowRemove = false;
         if(!_hasNextAssigned) {
             _nextAssigned = false;
             while(true) {
@@ -88,7 +90,16 @@ public class AcceptIterator<T> extends AbstractConstIterator<T> {
         T result      = _next;
         _next         = null;
         _nextAssigned = false;
+        _allowRemove  = true;
         return result;
+    }
+
+    @Override public void remove() {
+        if(_allowRemove) {
+            _src.remove();
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.speakingfish.common.function.Getter;
 import com.speakingfish.common.value.util.AbstractSimpleSingleton;
 
-public class LazyIterator<T> extends AbstractConstIterator<T> {
+public class LazyIterator<T> extends AbstractIterator<T> {
 
     final AbstractSimpleSingleton<Iterator<T>> _preserve;
     
@@ -23,6 +23,10 @@ public class LazyIterator<T> extends AbstractConstIterator<T> {
 
     @Override public T next() {
         return _preserve.get().next();
+    }
+
+    @Override public void remove() {
+        _preserve.get().remove();
     }
 
 }

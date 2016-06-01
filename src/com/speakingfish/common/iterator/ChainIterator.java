@@ -3,7 +3,7 @@ package com.speakingfish.common.iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ChainIterator<T> extends AbstractConstIterator<T> {
+public class ChainIterator<T> extends AbstractIterator<T> {
     
     protected final Iterator<Iterator<T>> _iterators;
     protected                Iterator<T>  _current = null;
@@ -53,6 +53,14 @@ public class ChainIterator<T> extends AbstractConstIterator<T> {
             _current = _iterators.next();
         }
         return _current.next();
+    }
+
+    @Override public void remove() {
+        if(null == _current) {
+            throw new IllegalStateException();
+        } else {
+            _current.remove();
+        }
     }
     
     
